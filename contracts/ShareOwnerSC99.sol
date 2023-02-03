@@ -1,8 +1,9 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/finance/PaymentSplitter.sol";
+import "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
 
-contract ShareOwnerSC99 is PaymentSplitter {
+contract ShareOwnerSC99 is PaymentSplitter, ERC721Holder {
     uint256[] private _shares = [
         75, // 75%
         25 // 25%

@@ -38,7 +38,6 @@ contract MatrixSC99 is ReentrancyGuard, ERC721Enumerable, InterfaceMatrixSC99 {
 
     event Registration(uint256 indexed newTokenId, uint256 indexed uplineTokenId, uint256 indexed timestamp);
 
-    // Address USDC = 0x7f5c764cbc14f9669b88837ca1490cca17c31607
     constructor(address _addressUSDC, string memory _defaultBaseURI, address _defaultUplineAddress) ERC721("Matrix SC99", "MSC99") {
         tokenUSDC = IERC20(_addressUSDC);
         defaultBaseURI = _defaultBaseURI;
