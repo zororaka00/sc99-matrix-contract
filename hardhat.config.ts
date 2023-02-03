@@ -39,16 +39,6 @@ const config: HardhatUserConfig = {
       chainId: 31337,
       allowUnlimitedContractSize: true
     },
-    mumbaipolygon: {
-      url: process.env.MUMBAI_POLYGON_TESTNET_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    },
-    polygon: {
-      url: process.env.POLYGON_MAINNET_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    },
     optimism: {
       url: process.env.OPTIMISM_MAINNET_URL || "",
       accounts:
@@ -57,8 +47,6 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-      polygonMumbai: process.env.POLYGON_API_KEY as string,
-      polygon: process.env.POLYGON_API_KEY as string,
       optimisticEthereum: process.env.ETHERSCAN_API_KEY as string,
     },
   },
