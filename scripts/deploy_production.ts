@@ -1,41 +1,19 @@
-import { ethers } from "hardhat";
+import { ethers, upgrades } from "hardhat";
 
 async function main() {
-  const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-  const addressBUSD = "0x9C9e5fD8bbc25984B178FdCE6117Defa39d2db39";
-
-  let instance_shareowner = [];
-  const ShareOwner = await ethers.getContractFactory("ShareOwner");
-  instance_shareowner[0] = await ShareOwner.deploy();
-  await delay(5000);
-  instance_shareowner[1] = await ShareOwner.deploy();
-  await delay(5000);
-  instance_shareowner[2] = await ShareOwner.deploy();
-  await delay(5000);
-  instance_shareowner[3] = await ShareOwner.deploy();
-  await delay(5000);
-  instance_shareowner[4] = await ShareOwner.deploy();
-  await delay(5000);
-  instance_shareowner[5] = await ShareOwner.deploy();
-  await delay(5000);
-  instance_shareowner[6] = await ShareOwner.deploy();
-  await delay(5000);
-  instance_shareowner[7] = await ShareOwner.deploy();
-  await delay(5000);
-  instance_shareowner[8] = await ShareOwner.deploy();
-  await delay(5000);
-  instance_shareowner[9] = await ShareOwner.deploy();
-  await delay(5000);
-  instance_shareowner[10] = await ShareOwner.deploy();
-  await delay(5000);
-  instance_shareowner[11] = await ShareOwner.deploy();
-  await delay(5000);
-  let address_shareowner = await instance_shareowner.map((d: any) => d.address);
-  console.log(`Address Share Owner Contract: ${address_shareowner}`);
-
-  let instance_matrix = await (await ethers.getContractFactory("Matrix")).deploy(addressBUSD, address_shareowner);
-  await instance_matrix.deployed();
-  console.log(`Address Matrix Contract: ${instance_matrix.address}`);
+  let instance_share_owner_sc99 = await (await ethers.getContractFactory("ShareOwnerSC99")).deploy();
+  await instance_share_owner_sc99.deployed();
+  console.log(`Address Share Owner Contract: ${instance_share_owner_sc99.address}`);
+  
+  let instance_matrix_sc99 = await (await ethers.getContractFactory("MatrixSC99"))
+  .deploy("0x7f5c764cbc14f9669b88837ca1490cca17c31607", "ipfs://", instance_share_owner_sc99.address);
+  await instance_matrix_sc99.deployed();
+  console.log(`Address Matrix Contract: ${instance_matrix_sc99.address}`);
+  
+  let instance_swap_sc99 = await (await ethers.getContractFactory("SwapSC99"))
+  .deploy("0x4200000000000000000000000000000000000006", "0xe592427a0aece92de3edee1f18e0157c05861564");
+  await instance_swap_sc99.deployed();
+  console.log(`Address Swap Contract: ${instance_swap_sc99.address}`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

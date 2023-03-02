@@ -2,13 +2,13 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract TokenExample is ERC20("BUSD", "BUSD") {
+contract TokenExample is ERC20("USDC", "USDC") {
     constructor() {
         _mint(_msgSender(), 1000000000e18);
     }
     
     function decimals() public view virtual override returns (uint8) {
-        return 18;
+        return 6;
     }
 
     function faucet(uint256 amount) external {
