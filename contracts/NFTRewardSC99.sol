@@ -28,6 +28,10 @@ contract NFTRewardSC99 is Ownable, ReentrancyGuard, ERC721AQueryable {
         defaultURI = _defaultURI;
     }
 
+    function updateReceivedAddress(address _receivedAddress) external onlyOwner {
+        receivedAddress = _receivedAddress;
+    }
+
     function _startTokenId() internal override view virtual returns (uint256) {
         return 1;
     }
@@ -58,13 +62,13 @@ contract NFTRewardSC99 is Ownable, ReentrancyGuard, ERC721AQueryable {
         return result;
     }
 
-    function claimableRewardBatch(uint256[] memory _tokenIds) external view returns(uint256) {
-        uint256 result = proxyReward.claimableRewardBatch(_tokenIds);
+    function claimableRewardBatch(uint256[] memory _tokenIds) external view returns(uint256[] memory) {
+        uint256[] memory result = proxyReward.claimableRewardBatch(_tokenIds);
         return result;
     }
 
-    function claimRewardBatch(uint256[] memory _tokenIds) external returns(uint256) {
-        uint256 result = proxyReward.claimRewardBatch(_tokenIds);
+    function claimRewardBatch(uint256[] memory _tokenIds) external returns(uint256[] memory) {
+        uint256[] memory result = proxyReward.claimRewardBatch(_tokenIds);
         return result;
     }
 

@@ -55,7 +55,7 @@ contract RewardSC99 is UUPSUpgradeable, OwnableUpgradeable, ReentrancyGuardUpgra
 
     function claimableReward(uint256 _tokenId) public override view returns(uint256) {
         require(_tokenId > 0 && _tokenId <= maxTokenId, "Token Id is cannot claim reward");
-        return claimableRewards - notClaimedRewards[_tokenId] - claimedRewards[_tokenId];
+        return claimableRewards - claimedRewards[_tokenId] - notClaimedRewards[_tokenId];
     }
 
     function claimReward(uint256 _tokenId) external override nonReentrant returns(uint256) {
@@ -67,28 +67,28 @@ contract RewardSC99 is UUPSUpgradeable, OwnableUpgradeable, ReentrancyGuardUpgra
         return amount;
     }
 
-    function claimableRewardBatch(uint256[] memory _tokenIds) external override view returns(uint256) {
-        uint256 totalAmount;
+    function claimableRewardBatch(uint256[] memory _tokenIds) external override view returns(uint256[] memory) {
+        uint256[] memory amounts = new uint256[](_tokenIds.length);
         for (uint i = 0; i < _tokenIds.length; i++) {
             require(_tokenIds[i] > 0 && _tokenIds[i] <= maxTokenId, "Token Id is cannot claim reward");
-            totalAmount += claimableRewards - notClaimedRewards[_tokenIds[i]] - claimedRewards[_tokenIds[i]];
+            amounts[i] = claimableRewards - claimedRewards[_tokenIds[i]] - notClaimedRewards[_tokenIds[i]];
         }
-        return totalAmount;
+        return amounts;
     }
 
-    function claimRewardBatch(uint256[] memory _tokenIds) external override nonReentrant returns(uint256) {
-        uint256 totalAmount;
+    function claimRewardBatch(uint256[] memory _tokenIds) external override nonReentrant returns(uint256[] memory) {
+        uint256[] memory amounts = new uint256[](_tokenIds.length);
         uint256 currentClaimableRewards = claimableRewards;
         for (uint i = 0; i < _tokenIds.length; i++) {
             require(_tokenIds[i] > 0 && _tokenIds[i] <= maxTokenId, "Token Id is cannot claim reward");
-            uint256 amount = currentClaimableRewards - notClaimedRewards[_tokenIds[i]] - claimedRewards[_tokenIds[i]];
+            uint256 amount = currentClaimableRewards - claimedRewards[_tokenIds[i]] - notClaimedRewards[_tokenIds[i]];
             if (amount > 0) {
                 tokenUSDC.transfer(nftReward.ownerOf(_tokenIds[i]), amount);
                 claimedRewards[_tokenIds[i]] += amount;
-                totalAmount += amount;
             }
+            amounts[i] = amount;
         }
-        return totalAmount;
+        return amounts;
     }
 
     function claimableRewardFor(address _account) public override view returns(uint256) {
@@ -96,8 +96,9 @@ contract RewardSC99 is UUPSUpgradeable, OwnableUpgradeable, ReentrancyGuardUpgra
         uint256[] memory tokenIds = nftReward.tokensOfOwner(_account);
         if (tokenIds.length > 0) {
             for (uint i = 0; i < tokenIds.length; i++) {
-                require(tokenIds[i] <= maxTokenId, "Token Id is cannot claim reward");
-                totalAmount += claimableRewards - notClaimedRewards[tokenIds[i]] - claimedRewards[tokenIds[i]];
+                if (tokenIds[i] <= maxTokenId) {
+                    totalAmount += claimableRewards - claimedRewards[tokenIds[i]] - notClaimedRewards[tokenIds[i]];
+                }
             }
         }
         return totalAmount;
@@ -109,11 +110,12 @@ contract RewardSC99 is UUPSUpgradeable, OwnableUpgradeable, ReentrancyGuardUpgra
         uint256[] memory tokenIds = nftReward.tokensOfOwner(_account);
         if (tokenIds.length > 0) {
             for (uint i = 0; i < tokenIds.length; i++) {
-                require(tokenIds[i] <= maxTokenId, "Token Id is cannot claim reward");
-                uint256 amount = currentClaimableRewards - notClaimedRewards[tokenIds[i]] - claimedRewards[tokenIds[i]];
-                if (amount > 0) {
-                    claimedRewards[tokenIds[i]] += amount;
-                    totalAmount += amount;
+                if (tokenIds[i] <= maxTokenId) {
+                    uint256 amount = currentClaimableRewards - claimedRewards[tokenIds[i]] - notClaimedRewards[tokenIds[i]];
+                    if (amount > 0) {
+                        claimedRewards[tokenIds[i]] += amount;
+                        totalAmount += amount;
+                    }
                 }
             }
             if (totalAmount > 0) {
