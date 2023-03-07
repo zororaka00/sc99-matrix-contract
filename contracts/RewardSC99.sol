@@ -22,6 +22,7 @@ contract RewardSC99 is UUPSUpgradeable, OwnableUpgradeable, ReentrancyGuardUpgra
     mapping(uint256 => uint256) public claimedRewards;
 
     event DistributeReward(address indexed who, uint256 indexed amount);
+    event WithdrawReward(address indexed who, uint256 indexed tokenId, uint256 indexed amount);
 
     function initialize(address _tokenUSDC, address _nftReward) public initializer {
         __Ownable_init();
@@ -60,8 +61,10 @@ contract RewardSC99 is UUPSUpgradeable, OwnableUpgradeable, ReentrancyGuardUpgra
     function claimReward(uint256 _tokenId) external override nonReentrant returns(uint256) {
         uint256 amount = claimableReward(_tokenId);
         if (amount > 0) {
-            tokenUSDC.transfer(nftReward.ownerOf(_tokenId), amount);
+            address who = nftReward.ownerOf(_tokenId);
+            tokenUSDC.transfer(who, amount);
             claimedRewards[_tokenId] += amount;
+            emit WithdrawReward(who, _tokenId, amount);
         }
         return amount;
     }
@@ -82,8 +85,10 @@ contract RewardSC99 is UUPSUpgradeable, OwnableUpgradeable, ReentrancyGuardUpgra
             require(_tokenIds[i] > 0 && _tokenIds[i] <= maxTokenId, "Token Id is cannot claim reward");
             uint256 amount = currentClaimableRewards - claimedRewards[_tokenIds[i]] - notClaimedRewards[_tokenIds[i]];
             if (amount > 0) {
-                tokenUSDC.transfer(nftReward.ownerOf(_tokenIds[i]), amount);
+                address who = nftReward.ownerOf(_tokenIds[i]);
+                tokenUSDC.transfer(who, amount);
                 claimedRewards[_tokenIds[i]] += amount;
+                emit WithdrawReward(who, _tokenIds[i], amount);
             }
             amounts[i] = amount;
         }
@@ -114,6 +119,7 @@ contract RewardSC99 is UUPSUpgradeable, OwnableUpgradeable, ReentrancyGuardUpgra
                     if (amount > 0) {
                         claimedRewards[tokenIds[i]] += amount;
                         totalAmount += amount;
+                        emit WithdrawReward(_account, tokenIds[i], amount);
                     }
                 }
             }
