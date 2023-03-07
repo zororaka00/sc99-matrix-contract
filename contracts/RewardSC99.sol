@@ -16,7 +16,7 @@ contract RewardSC99 is UUPSUpgradeable, OwnableUpgradeable, ReentrancyGuardUpgra
     uint256 private constant basePriceNFT = 100e6;
     uint256 public treasury;
     uint256 public maxTokenId;
-    uint256 public totalDistributeRewards;
+    uint256 public override totalDistributeRewards;
     uint256 public claimableRewards;
     mapping(uint256 => uint256) public notClaimedRewards;
     mapping(uint256 => uint256) public claimedRewards;

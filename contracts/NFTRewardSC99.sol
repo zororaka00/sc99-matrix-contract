@@ -2,8 +2,8 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "erc721a/contracts/extensions/ERC721AQueryable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "erc721a/contracts/extensions/ERC721AQueryable.sol";
 import "./interfaces/InterfaceReward.sol";
 
 contract NFTRewardSC99 is Ownable, ReentrancyGuard, ERC721AQueryable {
@@ -50,6 +50,11 @@ contract NFTRewardSC99 is Ownable, ReentrancyGuard, ERC721AQueryable {
         tokenUSDC.transferFrom(who, receivedAddress, totalPrice);
 
         _mint(who, quantity);
+    }
+
+    function totalDistributeRewards() external view returns(uint256) {
+        uint256 result = proxyReward.totalDistributeRewards();
+        return result;
     }
 
     function claimableReward(uint256 _tokenId) external view returns(uint256) {
