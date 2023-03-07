@@ -16,13 +16,12 @@ contract RewardSC99 is UUPSUpgradeable, OwnableUpgradeable, ReentrancyGuardUpgra
     uint256 private constant basePriceNFT = 100e6;
     uint256 public treasury;
     uint256 public maxTokenId;
-    uint256 public override totalDistributeRewards;
+    uint256 public totalDistributeRewards;
     uint256 public claimableRewards;
     mapping(uint256 => uint256) public notClaimedRewards;
     mapping(uint256 => uint256) public claimedRewards;
 
     event DistributeReward(address indexed who, uint256 indexed amount);
-    event WithdrawReward(address indexed who, uint256 indexed tokenId, uint256 indexed amount);
 
     function initialize(address _tokenUSDC, address _nftReward) public initializer {
         __Ownable_init();

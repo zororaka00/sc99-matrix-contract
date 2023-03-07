@@ -52,11 +52,6 @@ contract NFTRewardSC99 is Ownable, ReentrancyGuard, ERC721AQueryable {
         _mint(who, quantity);
     }
 
-    function totalDistributeRewards() external view returns(uint256) {
-        uint256 result = proxyReward.totalDistributeRewards();
-        return result;
-    }
-
     function claimableReward(uint256 _tokenId) external view returns(uint256) {
         uint256 result = proxyReward.claimableReward(_tokenId);
         return result;
