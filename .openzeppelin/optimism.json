@@ -1,0 +1,204 @@
+{
+  "manifestVersion": "3.2",
+  "proxies": [
+    {
+      "address": "0xC88A481b1b1Bae1F87040e64c4f2507112969DD4",
+      "txHash": "0x3e16ec7a359954d72397acee7b0b253701bf80efeec1db5d86d36ca43e0081a0",
+      "kind": "uups"
+    }
+  ],
+  "impls": {
+    "40d372c24ee2a86885a353159322c0317c65a947cb2f343c0b983bccd7305668": {
+      "address": "0xC4E6c4Cfa8F89776e0623d2f77b87160D6Ab6cf0",
+      "txHash": "0xd0dbed25ecf3d8a628ed0b5d351141fffc5544f6dc87b388550daec2dac367e8",
+      "layout": {
+        "solcVersion": "0.8.17",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC1967UpgradeUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\ERC1967\\ERC1967UpgradeUpgradeable.sol:211"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "UUPSUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\proxy\\utils\\UUPSUpgradeable.sol:107"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\utils\\ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "151",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "152",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:94"
+          },
+          {
+            "label": "_status",
+            "offset": 0,
+            "slot": "201",
+            "type": "t_uint256",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:38"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "202",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "ReentrancyGuardUpgradeable",
+            "src": "@openzeppelin\\contracts-upgradeable\\security\\ReentrancyGuardUpgradeable.sol:80"
+          },
+          {
+            "label": "tokenUSDC",
+            "offset": 0,
+            "slot": "251",
+            "type": "t_contract(IERC20)1362",
+            "contract": "RewardSC99",
+            "src": "contracts\\RewardSC99.sol:11"
+          },
+          {
+            "label": "nftReward",
+            "offset": 0,
+            "slot": "252",
+            "type": "t_contract(IERC721AQueryable)2291",
+            "contract": "RewardSC99",
+            "src": "contracts\\RewardSC99.sol:12"
+          },
+          {
+            "label": "versionCode",
+            "offset": 0,
+            "slot": "253",
+            "type": "t_uint256",
+            "contract": "RewardSC99",
+            "src": "contracts\\RewardSC99.sol:14"
+          },
+          {
+            "label": "treasury",
+            "offset": 0,
+            "slot": "254",
+            "type": "t_uint256",
+            "contract": "RewardSC99",
+            "src": "contracts\\RewardSC99.sol:17"
+          },
+          {
+            "label": "maxTokenId",
+            "offset": 0,
+            "slot": "255",
+            "type": "t_uint256",
+            "contract": "RewardSC99",
+            "src": "contracts\\RewardSC99.sol:18"
+          },
+          {
+            "label": "totalDistributeRewards",
+            "offset": 0,
+            "slot": "256",
+            "type": "t_uint256",
+            "contract": "RewardSC99",
+            "src": "contracts\\RewardSC99.sol:19"
+          },
+          {
+            "label": "claimableRewards",
+            "offset": 0,
+            "slot": "257",
+            "type": "t_uint256",
+            "contract": "RewardSC99",
+            "src": "contracts\\RewardSC99.sol:20"
+          },
+          {
+            "label": "notClaimedRewards",
+            "offset": 0,
+            "slot": "258",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "contract": "RewardSC99",
+            "src": "contracts\\RewardSC99.sol:21"
+          },
+          {
+            "label": "claimedRewards",
+            "offset": 0,
+            "slot": "259",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "contract": "RewardSC99",
+            "src": "contracts\\RewardSC99.sol:22"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IERC20)1362": {
+            "label": "contract IERC20",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IERC721AQueryable)2291": {
+            "label": "contract IERC721AQueryable",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_uint256,t_uint256)": {
+            "label": "mapping(uint256 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    }
+  }
+}
